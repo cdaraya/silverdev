@@ -99,8 +99,13 @@ jobs:
           #Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
           Set-Item WSMan:\localhost\Client\TrustedHosts -Value "172.30.35.108" -Force
 
-          $password = ConvertTo-SecureString -String ${{ env.SERVER_PASSWORD }} -AsPlainText -Force
-          $credential = New-Object System.Management.Automation.PSCredential ("${{ env.SERVER_USERNAME }}", $password)
+          #$password = ConvertTo-SecureString -String ${{ env.SERVER_PASSWORD }} -AsPlainText -Force
+          $password = ConvertTo-SecureString -String ".\codebase" -AsPlainText -Force
+          
+          #$credential = New-Object System.Management.Automation.PSCredential ("${{ env.SERVER_USERNAME }}", $password)
+          $credential = New-Object System.Management.Automation.PSCredential ("Jack:6@Codeb", $password)
+          
+          
           #$session = New-PSSession -ConnectionUri "https://${{ env.SERVER_HOST }}" -Credential $credential
           #$session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
           #$session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Kerberos -UseSSL
