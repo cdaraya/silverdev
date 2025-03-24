@@ -5,4 +5,4 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Verificar runner
-        run: echo "El r   unner está funcionando en Windows Server 🎉"
+        run: echo "El r    unner está funcionando en Windows Server 🎉"
