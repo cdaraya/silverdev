@@ -38,7 +38,6 @@ jobs:
       #    SERVER_HOST: ${{ secrets.SERVER_HOST }}
       #    SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
       #    SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
-      
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -49,7 +48,7 @@ jobs:
 
       - name: Install dependencies
         run: python -m pip install -r ./provisiones_factoring/requirements.txt
-  
+
       - name: Build Docker image
         run: docker build -t my-app-image ./provisiones_factoring
 
@@ -87,7 +86,6 @@ jobs:
       #    FTP_PASSWORD: ${{ env.FTP_PASSWORD }} # O env.FTP_PASSWORD si es variable
       #    WELCOME: "ssh scp ssh pipelines"
       #    LASTSSH: "Doing something after copying"
-        Write-Host "Valor de SERVER_PASSWORD: '${{ env.SERVER_PASSWORD }}'"
 
       - name: Restaurar certificado
         run: |
