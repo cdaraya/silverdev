@@ -1,12 +1,6 @@
 name: Deploy a Docker app to Linux Server via FTP and SSH
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push]
 env:
   DAY_OF_WEEK: Monday
   FTP_HOST: ${{ vars.FTP_HOST }}
