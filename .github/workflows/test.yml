@@ -1,0 +1,8 @@
+name: Test Runner
+on: [push]
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Verificar runner
+        run: echo "El runner está funcionando en Windows Server 🎉"
