@@ -1,4 +1,4 @@
-name: Deploy a Docker app to Linux Server via FTP and SSH
+name: Deploy a Docker app to   Linux Server via FTP and SSH
 
 on: [push]
 env:
