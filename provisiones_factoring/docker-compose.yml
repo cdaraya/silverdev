@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    environment:  # Verifica que este esté en minúsculas
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_credentials.json
+    volumes:
+      - .:/app
+    command: chmod +x /start.sh && /start.sh

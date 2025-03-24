@@ -1,0 +1,101 @@
+﻿TIPO DOCTO.;Familia1;Familia2
+ANT EXCEDENTES;Otro;Otro
+ANTICIPO DE FACTURA;Otro;Otro
+BOLSA;Factura;Factura
+BOLSA DE PRODUCTOS;Factura;Factura
+CAP;Confirming;Credito
+CARTA DE CREDITO;Comex;Otro
+CERTIFICADO;Contrato;Otro
+CERTIFICADO SERVIU;Contrato;Otro
+CH OL FYNPAL;Cheque;Cheque
+CHEQUE;Cheque;Cheque
+CHEQUE U$;Cheque;Cheque
+COMPRA CARTERA (FAC);Factura;Factura
+COMPRA CARTERA;Factura;Factura
+CONTRATO;Contrato;Otro
+CONTRATO DOLAR;Contrato;Otro
+CONTRATO REAJUSTABLE;Contrato;Otro
+CONVENIO JUDICIAL;Crédito;Credito
+CONVENIO JUDICIAL U;Crédito;Credito
+CONVENIO JUDICIAL U$;Crédito;Credito
+CONVENIO JUDICIAL UF;Crédito;Credito
+CREDITO;Crédito;Credito
+CREDITO EXPORTACION;Crédito;Credito
+CREDITO EXPORTACION CONTRA FACTURA;Factura;Factura
+CREDITO REAJUSTABLE;Crédito;Credito
+DEPOSITO BANCARIO;Cheque;Cheque
+DEVOLUCION DE IMPUES;Otro;Otro
+FAC;Factura;Factura
+FAC CONFIRMING;Confirming;Credito
+FAC CORFO;Factura;Factura
+FAC DOL SIN CONVENI;Factura;Factura
+FAC DOL SIN CONVENIO;Factura;Factura
+FAC NAC EN DOLAR;Factura;Factura
+FAC SIN CONVENIO;Factura;Factura
+FACTURA;Factura;Factura
+FACTURA CON GARANTIA;Factura;Factura
+FACTURA DE COMPRA;Factura;Factura
+FACTURA DIRECTA U$;Confirming;Credito
+FACTURA DOCUMENTADA;Factura;Factura
+FACTURA ELECTRONICA;Factura;Factura
+FACTURA EXENTA;Factura;Factura
+FACTURA ONLINE;Factura;Factura
+FACTURA ONLINE EXENTA;Factura;Factura
+FACTURA REEMPLAZO;Factura;Factura
+FACTURAS EN CUOTAS;Factura;Factura
+FC GAR FIANZA;Confirming;Credito
+FC IMP GAR FIANZA;Confirming;Credito
+FC NAC DOL;Confirming;Credito
+FCI COBRANZA;Comex;Otro
+FCI CORRESPONSAL;Comex;Otro
+FCI CZA + POLIZA;Comex;Otro
+FG FIANZA;Factura;Factura
+FG POLIZA;Factura;Factura
+FI;Comex;Otro
+FI COBRANZA VISTA;Comex;Otro
+FI CON WARRANTS;Comex;Otro
+FI CONTROL FLUJO;Comex;Otro
+FI CORRESPONSAL;Comex;Otro
+FI FIANZA + FLUJO;Comex;Otro
+FI FINANCIERO;Comex;Otro
+FI POLIZA + FLUJO;Comex;Otro
+FN DOL GAR POL;Factura;Factura
+FN DOLAR EXENTA;Factura;Factura
+FOL ACEPTA;Factura;Factura
+FOL DEFNT NO USAR;quitar;Otro
+FOL EXENTA FYNPAL;Factura;Factura
+FOL EXENTA GOSOCKET;Factura;Factura
+FOL EXENTA SII;Factura;Factura
+FOL FYNPAL;Factura;Factura
+FOL GOSOCKET;Factura;Factura
+FOL SII;Factura;Factura
+GARANTIA CORFO;Crédito;Credito
+GARANTIA FORWARD;Otro;Otro
+LETRA;Letra;Otro
+LETRA CREDITO $;Crédito;Credito
+LETRA CREDITO DOL;Crédito;Credito
+LETRA DOLAR;Letra;Otro
+LETRA ENLACE;Letra;Otro
+LETRA REAJUSTABLE;Letra;Otro
+LETRA US;Letra;Otro
+PAE CON GARANTÍA;Crédito;Credito
+GARANTIA CORFO;Crédito;Credito
+PAGARE;Crédito;Credito
+PAGARE DOLAR;Crédito;Credito
+PAGARE ENLACE;Crédito;Credito
+REC DEUDA DOLAR;Crédito;Credito
+REC DEUDA LEASING;Crédito;Credito
+REC DEUDA UF;Crédito;Credito
+FACTURA CON POLIZA;Factura;Factura
+FACTURA CORFO;Factura;Factura
+GARANTÍA CORFO;Crédito;Credito
+RENEGOCIACION DEUDO;Crédito;Credito
+RECONOCIMIENTO DEUD;Crédito;Credito
+RECONOCIMIENTO DEUDA;Crédito;Credito
+RECONOCIMIENTO DEUDA FACTURA;Crédito;Credito
+RENEGOCIACION;Crédito;Credito
+FACTURA  REEMPLAZO;Factura;Factura
+FI COBRANZA VISTA (;Comex;Otro
+COMPRA CARTERA (FAC;Factura;Factura
+FACTURA SIN RESPONS;Factura;Factura
+FA EXENTA SIN  CONV;Factura;Factura

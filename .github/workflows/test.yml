@@ -1,8 +1,169 @@
-name: Test Runner
-on: [push]
+name: Deploy a Docker app to Linux Server via FTP and SSH
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+env:
+  DAY_OF_WEEK: Monday
+  FTP_HOST: ${{ vars.FTP_HOST }}
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  FTP_USERNAME: ${{ vars.FTP_USERNAME }}
+  FTP_PASSWORD: ${{ vars.FTP_PASSWORD }}
+  SERVER_HOST: ${{ secrets.SERVER_HOST }}
+  SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+  SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+
 jobs:
-  test:
-    runs-on: self-hosted
+  deploy:
+    #runs-on: ubuntu-latest  # Use a Linux runner (ubuntu-latest is recommended)
+    runs-on: windows-latest # Especificar el agente de Windows
+    env: 
+      Greeting: Hello
     steps:
-      - name: Verificar runner
-        run: echo "El r    unner está funcionando en Windows Server 🎉"
+      #- name: Verificar secretos
+      #  with: # Set the secret as an input
+      #    FTP_HOST: ${{ secrets.FTP_HOST }}
+      #    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      #    FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      #    FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      #    SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      #    SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+      #    SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+      #  env:
+      #    FTP_HOST: ${{ secrets.FTP_HOST }}
+      #    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      #    FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      #    FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      #    SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      #    SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+      #    SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13.2' # Or your preferred Python version
+
+      - name: Install dependencies
+        run: python -m pip install -r ./provisiones_factoring/requirements.txt
+
+      - name: Build Docker image
+        run: docker build -t my-app-image ./provisiones_factoring
+
+      #- name: Login to Docker Hub (optional)
+      #  if: ${{ env.DOCKER_USERNAME != '' && env.DOCKER_PASSWORD != '' }}
+      #  run: |
+      #    docker login -u ${{ env.DOCKER_USERNAME }} -p ${{ env.DOCKER_PASSWORD }}
+
+      #- name: Push Docker image to Docker Hub (optional)
+      #  if: ${{ env.DOCKER_USERNAME != '' && env.DOCKER_PASSWORD != '' }}
+      #  run: |
+      #    docker push my-app-image
+          
+      #- name: Deploy files via SFTP
+      #  uses: pressidium/lftp-mirror-action@v1
+      #  with:
+      #    # SFTP credentials
+      #    host: ${{ env.FTP_HOST }}
+      #    port: "125"
+      #    user: ${{ env.FTP_USERNAME }}
+      #    pass: ${{ env.FTP_PASSWORD }}
+      #    # lftp settings
+      #    onlyNewer: false
+      #    settings: 'sftp:auto-confirm=yes'
+      #    # Mirror command options
+      #    localDir: '.'
+      #    remoteDir: './eurocapital'
+      #    reverse: true
+      #    ignoreFile: '.lftp_ignore'
+      #    options: '--verbose'
+
+      #  env:
+      #    FTP_HOST: ${{ env.FTP_HOST }} # O env.FTP_HOST si es variable
+      #    FTP_USERNAME: ${{ env.FTP_USERNAME }} # O env.FTP_USERNAME si es variable
+      #    FTP_PASSWORD: ${{ env.FTP_PASSWORD }} # O env.FTP_PASSWORD si es variable
+      #    WELCOME: "ssh scp ssh pipelines"
+      #    LASTSSH: "Doing something after copying"
+
+      - name: Restaurar certificado
+        run: |
+          echo "MIIDGzCCAgOgAwIBAgIQUOcHlzcA3alAO1xpGBa8sjANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDDApST0JIQUxGT1JEMB4XDTI1MDMyMDE5MTM1M1oXDTI2MDMyMDE5MzM1M1owFTETMBEGA1UEAwwKUk9CSEFMRk9SRDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALjRRulqUMLQUWgFvtFuAGGfcDQogdvj8FZvgyh17tOwfuBGUWl3Znt+rD0p4nNhKjVDc1DUb3JiKyJ1jUhkKl5jXyviu2Z8JXKjaJuWCL1voesKd0NHasyu4TIxR4psVfa8yW36kqjKHmimxb0c3X5er2uXO51tCymBhZHtUjdr1AVskcyz1K45Wwy63GQb32fePokH1fZbzF/zKt7U5RzxmMUtIyT2fRkpa+talu1PdqJPdIKofqPbfQafqp1IEdCLhfBPcY7E+j/2SaHnLIDQ5U+FWMZlImwvdnL3EGbOY21GV46HS0IF/82D26U4NH0XQR7OYqVrQQCDpwUoBKUCAwEAAaNnMGUwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATAVBgNVHREEDjAMggpST0JIQUxGT1JEMB0GA1UdDgQWBBRuahVacTa7Bm15NRYhAMGg6TPv5DANBgkqhkiG9w0BAQsFAAOCAQEAt83AQMw5J2B5G+0hrwdHgGwq4wMYEWDM+ghsiWb+sAYjPihMMD79pVRQZjCRwy/Kg5dd6DoWtWHNayDC6uTyQ9AAtbYUz+eGDa/qwQ+PbYJj8DfVHfsScHzwvnIKbNymRZi6GGMM/cbJAgHZcdWZIy7SZfqTWikYmD4/TZ35P+kKjgJE5/RMo29z4pdHYxOBtiF6oesXFEJ3leap5m5dWA6/u+g3COYCYOIt2N4NCwgVaIiaFtq6h3pI65xzWETSafUMsQ9+wLVNyDRrEGN3pze8oXN0tOrvYLvZ7ZGESsk8D8bJSVvJf6OP5+3Nb8OPIoo17UFCHC3MsS6Z5sMkgQ==" | Out-File -FilePath "C:\Temp\ServerCert.b64" -Encoding ascii
+          certutil -decode "C:\Temp\ServerCert.b64" "C:\Temp\ServerCert.cer"
+          Import-Certificate -FilePath "C:\Temp\ServerCert.cer" -CertStoreLocation Cert:\LocalMachine\Root
+        shell: pwsh
+
+      - name: Deploy to Windows Server via PowerShell Remoting
+        run: |
+          #Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
+          Set-Item WSMan:\localhost\Client\TrustedHosts -Value "172.30.35.108" -Force
+
+          $password = ConvertTo-SecureString -String ${{ env.SERVER_PASSWORD }} -AsPlainText -Force
+          $credential = New-Object System.Management.Automation.PSCredential ("${{ env.SERVER_USERNAME }}", $password)
+          #$session = New-PSSession -ConnectionUri "https://${{ env.SERVER_HOST }}" -Credential $credential
+          #$session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
+          #$session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Kerberos -UseSSL
+          $session = New-PSSession -ComputerName "172.30.35.108" -Credential $credential -Authentication Negotiate -UseSSL
+
+
+          Invoke-Command -Session $session -ScriptBlock {
+            # Tu script de PowerShell aquí
+            # ...
+            docker pull my-app-image
+            docker stop my-app-container -ErrorAction SilentlyContinue
+            docker rm my-app-container -ErrorAction SilentlyContinue
+            docker run -d -p 8096:8097 --name my-app-container my-app-image
+          }
+          Remove-PSSession -Session $session
+        shell: pwsh # Especificar el shell de PowerShell
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+          SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+          
+      #- name: Deploy to Windows Server via PowerShell Remoting
+      #  uses: dpaulino/remote-powershell@v1 # O la acción que prefieras
+      #  env:
+      #    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      #    SERVER_HOST: ${{ secrets.SERVER_HOST }}
+      #    SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+      #    SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+      #    SERVER_PRIVATE_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+
+          
+      #  with:
+      #    computerName: ${{ env.SERVER_HOST }}
+      #    username: ${{ env.SERVER_USERNAME }}
+      #    password: ${{ env.SERVER_PASSWORD }} # O usa credenciales de Kerberos/NTLM
+      #    #RUN: "ls -a; pwd"
+      #    script: |
+      #      # 1. Pull the image (conditional, only if Docker Hub is used)
+      #      if ${{ env.DOCKER_USERNAME != '' && env.DOCKER_PASSWORD != '' }}; then
+      #        docker pull my-app-image
+      #      fi
+
+      #      # 2. Stop any existing container (important!)
+      #      docker stop my-app-container || true
+
+      #      # 3. Remove any existing container (important!)
+      #      docker rm my-app-container || true
+
+      #      # 4. Run the Docker container (adjust ports and other options)
+      #      docker run -d -p 8096:8097 --name my-app-container my-app-image
+
+      #      # Or, if you use docker-compose:
+      #      # docker-compose up -d -f /path/to/your/docker-compose.yml # Absolute path
+
+      #      # Or, if you have a local deployment script (bash script):
+      #      # bash /path/to/your/deploy/script.sh # Absolute path
