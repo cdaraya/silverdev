@@ -97,7 +97,8 @@ jobs:
       - name: Deploy to Windows Server via PowerShell Remoting
         run: |
           #Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*" -Force
-          Set-Item WSMan:\localhost\Client\TrustedHosts -Value "ROBHALFORD" -Force
+          Set-Item WSMan:\localhost\Client\TrustedHosts -Value "172.30.35.108" -Force
+          #Set-Item WSMan:\localhost\Client\TrustedHosts -Value "ROBHALFORD" -Force
 
           #$password = ConvertTo-SecureString -String ${{ env.SERVER_PASSWORD }} -AsPlainText -Force
           $password = ConvertTo-SecureString -String ".\codebase" -AsPlainText -Force
@@ -109,8 +110,8 @@ jobs:
           #$session = New-PSSession -ConnectionUri "https://${{ env.SERVER_HOST }}" -Credential $credential
           #$session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
           #$session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Kerberos -UseSSL
-          #$session = New-PSSession -ComputerName "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
-          $session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
+          $session = New-PSSession -ComputerName "172.30.35.108" -Credential $credential -Authentication Negotiate -UseSSL
+          
 
 
           Invoke-Command -Session $session -ScriptBlock {
