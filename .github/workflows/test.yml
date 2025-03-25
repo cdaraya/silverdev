@@ -109,7 +109,8 @@ jobs:
           #$session = New-PSSession -ConnectionUri "https://${{ env.SERVER_HOST }}" -Credential $credential
           #$session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
           #$session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Kerberos -UseSSL
-          $session = New-PSSession -ComputerName "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
+          #$session = New-PSSession -ComputerName "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
+          $session = New-PSSession -ConnectionUri "https://ROBHALFORD:5986" -Credential $credential -Authentication Negotiate -UseSSL
 
 
           Invoke-Command -Session $session -ScriptBlock {
